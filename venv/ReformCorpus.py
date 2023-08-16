@@ -44,7 +44,7 @@ def analyse_and_seperate(path):
 
     print(f'There are {len(authors)} authors with an average of {total_texts_under_authors/len(authors)}({0})sd texts per author.')
     print(f'There are {total_texts_under_authors} texts from {len(total_texts)} total texts')
-    print(f'Test: Length of all Text from the authors: {set().union(*authors)}')
+    print(f'Test: Length of all Text from the authors: {len(set().union(*authors))}')
 if __name__ == '__main__':
     args = sys.argv[1:]
     analyse_and_seperate(args[0])
