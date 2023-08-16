@@ -14,7 +14,8 @@ def analyse_and_seperate(path):
     # what if texts are only used as not same author
     #only possible if we compare n^2 pairs
     # first compare all to get the complete picture of authors -> look wether all authors are complete. de
-    for idx in tqdm(range(corpus.review.shape[0]), desc='extracting docs '):
+    print(f"There are {corpus.review.shape} pairs")
+    for idx in tqdm(range(corpus.review.shape[0]), desc='Analysing Corpus'):
 
         temp = corpus.review[idx].split('$$$')
         doc_2 = BeautifulSoup(temp[0], 'html.parser').get_text().encode('utf-8').decode('utf-8')
@@ -32,29 +33,18 @@ def analyse_and_seperate(path):
                         break
             if not found:
                 authors.append({doc_1,doc_2})
-        else:#help
-            #doc_1_index,doc_2_index = -1,-1
-            #count = 0
-            #for author in authors:
-            #    for text in author:
-            #        if doc_1 == text:
-            #            doc_1_index = count
-            #        if doc_2 == text:
-            #            doc_2_index = count
-            #    count += 1
-            #    if doc_1 != -1:
-            #        authors[doc_1_index].add(doc_1)
-            #    if doc_2 != -1:
-            #        authors[doc_2_index].add(doc_2)
+        else:
             not_same_author.append([doc_1,doc_2])
 
     total_texts_under_authors = 0
     for author in authors:
          total_texts_under_authors += len(author)
 
+
+
     print(f'There are {len(authors)} authors with an average of {total_texts_under_authors/len(authors)}({0})sd texts per author.')
     print(f'There are {total_texts_under_authors} texts from {len(total_texts)} total texts')
-
+    print(f'Test: Length of all Text from the authors: {set().union(*authors)}')
 if __name__ == '__main__':
     args = sys.argv[1:]
     analyse_and_seperate(args[0])
