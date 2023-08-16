@@ -36,9 +36,15 @@ def analyse_and_seperate(path):
         else:
             not_same_author.append([doc_1,doc_2])
 
+    count = 0
     total_texts_under_authors = 0
+    texts_from_authors = set()
     for author in authors:
-         total_texts_under_authors += len(author)
+        texts_from_authors.union()
+        total_texts_under_authors += len(author)
+        if(len(texts_from_authors) != total_texts_under_authors):
+            print('Wrong amaount of texts in: ' +str(count))
+        count += 1
 
 
 
