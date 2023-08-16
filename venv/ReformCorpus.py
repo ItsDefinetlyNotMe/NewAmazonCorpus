@@ -44,7 +44,7 @@ def analyse_and_seperate(path):
     total_texts_under_authors = 0
     texts_from_authors = set()
     for author in authors:
-        texts_from_authors.union(author)
+        texts_from_authors = texts_from_authors.union(author)
         total_texts_under_authors += len(author)
         if(len(texts_from_authors) != total_texts_under_authors):
             print(f'Wrong amaount of texts in: {str(count)}. There are {len(texts_from_authors)} text in the set, but we count {total_texts_under_authors}.')
