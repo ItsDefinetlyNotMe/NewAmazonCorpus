@@ -47,7 +47,7 @@ def analyse_and_seperate(path):
         texts_from_authors.union(author)
         total_texts_under_authors += len(author)
         if(len(texts_from_authors) != total_texts_under_authors):
-            print(f'Wrong amaount of texts in: {str(count)}. There are {texts_from_authors} text in the set, but we count {total_texts_under_authors}.')
+            print(f'Wrong amaount of texts in: {str(count)}. There are {len(texts_from_authors)} text in the set, but we count {total_texts_under_authors}.')
         count += 1
 
     print(f'There are {len(authors)} authors with an average of {total_texts_under_authors/len(authors)}({0})sd texts per author.')
