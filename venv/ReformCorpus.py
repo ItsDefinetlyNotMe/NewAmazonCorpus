@@ -1,10 +1,11 @@
 import os
+import sys
 from tqdm import tqdm
 from bs4 import BeautifulSoup
 import pandas as pd
 
-def analyse_and_seperate():
-    corpus = pd.read_csv('amazon.csv', sep='\t')
+def analyse_and_seperate(path):
+    corpus = pd.read_csv(path, sep='\t')
     #each author is represented as the sum of their texts
     authors = []
     not_same_author = []
@@ -53,3 +54,7 @@ def analyse_and_seperate():
 
     print(f'There are {len(authors)} authors with an average of {total_texts_under_authors/len(authors)}({0})sd texts per author.')
     print(f'There are {total_texts_under_authors} texts from {len(total_texts)} total texts')
+
+if __name__ == '__main__':
+    args = sys.argv[1:]
+    analyse_and_seperate(args[0])
