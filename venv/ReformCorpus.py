@@ -57,7 +57,7 @@ def analyse_and_seperate(path):
     print(f'There are {same_author_pairs} Same author Pairs and {different_author_pairs} different Author pairs.')
     print(f'Test: Length of all Text from the authors: {len(set().union(*authors))}')
 def analyse(jsonl_file):
-    nlp = spacy.load("en_core_web_sm")
+    nlp = spacy.load("en_core_web_lg")
 
     with open(jsonl_file, 'r') as file1:
         lengths = []
