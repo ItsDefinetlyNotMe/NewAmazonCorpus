@@ -5,6 +5,8 @@ import statistics
 from tqdm import tqdm
 from bs4 import BeautifulSoup
 import pandas as pd
+import json
+from collections import defaultdict
 
 def analyse_and_seperate(path):
     corpus = pd.read_csv(path, sep='\t')
@@ -70,7 +72,7 @@ def analyse(jsonl_file):
             bool_same_topic = False
             bool_same_author = False
 
-            for key, value in data.items():
+            for key, value in data_raw.items():
                 pass
             if key.endswith("_L"):
                 data_L[ key[:-2] ] = value
