@@ -101,8 +101,8 @@ def analyse(jsonl_file):
                 return dictionary
 
             #count author texts and topics
-            authors[author_L] = (authors[author_L][0] + 1,increment_value(authors[author_L][1]))
-            authors[author_R]  = (authors[author_R][0] + 1,increment_value(authors[author_R][1]))
+            authors[author_L] = (authors[author_L][0] + 1,increment_value(authors[author_L][1],topic_L))
+            authors[author_R]  = (authors[author_R][0] + 1,increment_value(authors[author_R][1],topic_R))
 
             lengths.append(token_count_L)
             lengths.append(token_count_R)
