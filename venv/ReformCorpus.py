@@ -73,15 +73,14 @@ def analyse(jsonl_file):
             bool_same_author = False
 
             for key, value in data_raw.items():
-                pass
-            if key.endswith("_L"):
-                data_L[ key[:-2] ] = value
-            elif key.endswith("_R"):
-                data_R[ key[:-2] ] = value
-            elif key == 'label_c':
-                bool_same_topic = True if value == 1 else False
-            elif key == 'label_a':
-                bool_same_author = True if value == 1 else False
+                if key.endswith("_L"):
+                    data_L[ key[:-2] ] = value
+                elif key.endswith("_R"):
+                    data_R[ key[:-2] ] = value
+                elif key == 'label_c':
+                    bool_same_topic = True if value == 1 else False
+                elif key == 'label_a':
+                    bool_same_author = True if value == 1 else False
 
             #todo check for length in tokens ? exclude long and short ones
             tokenized_doc_L = nlp(data_L['review'])
