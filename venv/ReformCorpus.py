@@ -95,9 +95,14 @@ def analyse(jsonl_file):
             author_L, author_R = data_L['id'], data_R['id']
             topic_L, topic_R = data_L['topic'], data_R['topic']
 
+            def increment_value(dictionary, key):
+                current_value = dictionary.get(key, 0)
+                dictionary[key] = current_value + 1
+                return dictionary
+
             #count author texts and topics
-            authors[author_L] = (authors[author_L][0] + 1,authors[author_L][1].get(topic_L,0) +1)
-            authors[author_R]  = (authors[author_L][0] + 1,authors[author_L][1].get(topic_R,0) +1)
+            authors[author_L] = (authors[author_L][0] + 1,increment_value(authors[author_L][1]))
+            authors[author_R]  = (authors[author_R][0] + 1,increment_value(authors[author_R][1]))
 
             lengths.append(token_count_L)
             lengths.append(token_count_R)
