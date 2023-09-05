@@ -115,9 +115,10 @@ def analyse(jsonl_file):
         std_deviation = statistics.stdev(lengths)
 
         #analyse authors
-        num_authors = len(authors)
+        num_authors = len(authors.keys())
         texts_per_author = [count for count, _ in authors.values()]
-        topics_per_author = [len(topics) for topics in topics_per_author]
+        topic_per_author_list    = []
+        topics_per_author = [len(topics.keys()) for _,topics in authors.values()]
 
         avg_texts_per_author = statistics.mean(texts_per_author)
         std_dev_texts_per_author = statistics.stdev(texts_per_author)
