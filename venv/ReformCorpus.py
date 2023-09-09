@@ -117,6 +117,7 @@ def analyse(jsonl_file, min_token = 500, max_token = 1000):
 
         return authors
 def make_pairs():
+    pass
     #remove text if to short,
     #seperate a test set with seperate authors
     #mix and match pairs
