@@ -53,10 +53,10 @@ def analyse(jsonl_file, min_token = 500, max_token = 1000):
                 file_path = os.path.join(base,author_L)
                 if os.path.exists(file_path):
                     with open(file_path, 'a') as file:
-                        file.write(data_to_append + '\n')
+                        file.write(json.dumps(data_to_append) + '\n')
                 else:
                     with open(file_path, 'w') as file:
-                        file.write(data_to_append + '\n')
+                        file.write(json.dumps(data_to_append) + '\n')
 
             data_to_append = {"topic": topic_R, "review":data_R['review'] }
 
@@ -64,10 +64,10 @@ def analyse(jsonl_file, min_token = 500, max_token = 1000):
                 file_path = os.path.join(base,author_R)
                 if os.path.exists(file_path):
                     with open(file_path, 'a') as file:
-                        file.write(data_to_append + '\n')
+                        file.write(json.dumps(data_to_append) + '\n')
                 else:
                     with open(file_path, 'w') as file:
-                        file.write(data_to_append + '\n')
+                        file.write(json.dumps(data_to_append) + '\n')
 
 
             def increment_value(dictionary, key):
@@ -113,7 +113,7 @@ def analyse(jsonl_file, min_token = 500, max_token = 1000):
         print(f"Standard Deviation of Topics per Author: {std_dev_topics_per_author}")
 
         with open('results_dict', 'w') as file:
-            file.write(authors)
+            file.write(json.dumps(authors))
 
         return authors
 def make_pairs():
