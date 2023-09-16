@@ -163,7 +163,7 @@ def make_pairs(my_dict):
     training_set_diff_number = int(training_set_number_texts * 0.5)
     training_set_same_number = training_set_number_texts  - training_set_diff_number
     training_set = []
-    print(training_authors.values()[0])
+    print(training_authors.values())
     for _ in range(training_set_same_number):
         if any(len(set(authors_list)) > 2 for authors_list in training_authors.values()):
             while True:
