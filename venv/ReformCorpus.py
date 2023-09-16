@@ -179,7 +179,7 @@ def make_pairs(my_dict):
                     training_authors[random_author].remove(second_text)
                 else:
                     continue
-                training_set.append((random_author,first_text),(random_author,second_text))
+                training_set.append(((random_author,first_text),(random_author,second_text)))
                 break
         print("Out of same author texts")
 
@@ -197,7 +197,7 @@ def make_pairs(my_dict):
             training_authors[random_author_2].remove(text_2)
             if len(training_authors[random_author_2]) < 1:
                 del training_authors[random_author_2]
-            training_set.append((random_author_1, text_1),(random_author_2, text_2))
+            training_set.append(((random_author_1, text_1),(random_author_2, text_2)))
 
     #get same number  
 
@@ -221,7 +221,7 @@ def make_pairs(my_dict):
                     test_authors[random_author].remove(second_text)
                 else:
                     continue
-                test_set.append((random_author, first_text), (random_author, second_text))
+                test_set.append(((random_author, first_text), (random_author, second_text)))
                 break
         print("Out of same author texts")
 
@@ -239,7 +239,7 @@ def make_pairs(my_dict):
             test_authors[random_author_2].remove(text_2)
             if len(test_authors[random_author_2]) < 1:
                 del test_authors[random_author_2]
-            test_set.append((random_author_1, text_1), (random_author_2, text_2))
+            test_set.append(((random_author_1, text_1), (random_author_2, text_2)))
 
     #shuffle sets
     random.shuffle(training_set)
