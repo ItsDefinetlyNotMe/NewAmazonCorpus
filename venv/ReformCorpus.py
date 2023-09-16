@@ -165,7 +165,7 @@ def make_pairs(my_dict):
     training_set = []
 
     for _ in range(training_set_same_number):
-        if any(len(set(training_authors[element])) > 2 for element in training_authors.keys()):
+        if any(len(set(authors_list)) > 2 for authors_list in training_authors.values()):
             while True:
                 first_text = 0
                 second_text = 0
@@ -207,7 +207,7 @@ def make_pairs(my_dict):
     test_set = []
 
     for _ in range(test_set_same_number):
-        if any(len(set(test_authors[element])) > 2 for element in training_authors.keys()):
+        if any(len(set(authors_list)) > 2 for authors_list in test_authors.values()):
             while True:
                 first_text = 0
                 second_text = 0
