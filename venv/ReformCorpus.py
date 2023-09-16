@@ -170,7 +170,7 @@ def make_pairs(my_dict):
                 first_text = 0
                 second_text = 0
                 random_author = random.choice(list(training_authors.keys()))
-                text_set = set(training_authors[random_author])
+                text_set = list(set(training_authors[random_author]))
                 if len(text_set) > 1:
                     first_text = random.choice(text_set)
                     text_set.remove(first_text)
@@ -189,11 +189,11 @@ def make_pairs(my_dict):
             random_author_2 = random_author_1
             while random_author_2 == random_author_1:
                 random_author_2 = random.choice(list(training_authors.keys()))
-            text_1 = random.choice(set(training_authors[random_author_1]))
+            text_1 = random.choice(list(set(training_authors[random_author_1])))
             training_authors[random_author_1].remove(text_1)
             if len(training_authors[random_author_1]) < 1:
                 del training_authors[random_author_1]
-            text_2 = random.choice(set(training_authors[random_author_2]))
+            text_2 = random.choice(list(set(training_authors[random_author_2])))
             training_authors[random_author_2].remove(text_2)
             if len(training_authors[random_author_2]) < 1:
                 del training_authors[random_author_2]
