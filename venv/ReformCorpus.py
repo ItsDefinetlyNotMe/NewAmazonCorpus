@@ -153,7 +153,7 @@ def make_pairs(my_dict):
     for author in training_authors.keys():
         text_numbers = my_dict[author][0]
         array = []
-        for text_number in text_numbers:
+        for text_number in range(text_numbers):
             training_set_number_texts += text_number
             array.append([text_number]*appearences)
         training_authors[author] = array
