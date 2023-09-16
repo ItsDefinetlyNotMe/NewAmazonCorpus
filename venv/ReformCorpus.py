@@ -211,8 +211,8 @@ def make_pairs(my_dict):
             while True:
                 first_text = 0
                 second_text = 0
-                random_author = random.choice(test_authors.keys())
-                text_set = set(test_authors[random_author])
+                random_author = random.choice(list(test_authors.keys()))
+                text_set = list(set(test_authors[random_author]))
                 if len(text_set) > 1:
                     first_text = random.choice(text_set)
                     text_set.remove(first_text)
@@ -227,15 +227,15 @@ def make_pairs(my_dict):
 
     for _ in range(test_set_diff_number):
         if len(test_authors.keys()) > 1:
-            random_author_1 = random.choice(test_authors.keys())
+            random_author_1 = random.choice(list(test_authors.keys()))
             random_author_2 = random_author_1
             while random_author_2 == random_author_1:
-                random_author_2 = random.choice(test_authors.keys())
-            text_1 = random.choice(set(test_authors[random_author_1]))
+                random_author_2 = random.choice(list(test_authors.keys()))
+            text_1 = random.choice(list(set(test_authors[random_author_1])))
             test_authors[random_author_1].remove(text_1)
             if len(test_authors[random_author_1]) < 1:
                 del test_authors[random_author_1]
-            text_2 = random.choice(set(test_authors[random_author_2]))
+            text_2 = random.choice(list(set(test_authors[random_author_2])))
             test_authors[random_author_2].remove(text_2)
             if len(test_authors[random_author_2]) < 1:
                 del test_authors[random_author_2]
