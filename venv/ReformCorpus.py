@@ -145,7 +145,7 @@ def make_pairs(my_dict):
         array = []
         for text_number in range(text_numbers):
             test_set_number_texts += text_number
-            array.append([text_number]*appearences)
+            array.extend([text_number]*appearences)
 
         test_authors[author] = array
 
@@ -155,7 +155,7 @@ def make_pairs(my_dict):
         array = []
         for text_number in range(text_numbers):
             training_set_number_texts += text_number
-            array.append([text_number]*appearences)
+            array.extend([text_number]*appearences)
         training_authors[author] = array
 
     #make pairs
