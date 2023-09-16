@@ -248,6 +248,7 @@ def make_pairs(my_dict):
     return training_set,test_set
 
 def write_csv_from_sets(training_set,test_set):
+    base = "data"
     field_names = ["id", "sentiment", "review"]
     with open("training.csv",mode="w+", newline="") as csvfile:
         writer = csv.DictWriter(file, fieldnames=field_names)
@@ -259,11 +260,11 @@ def write_csv_from_sets(training_set,test_set):
             same_author = author_1 == author_2
 
             text_1 = ""
-            with open(author_1, 'r') as file:
+            with open(os.path.join(base,author_1), 'r') as file:
                 text_1 = json.loads(next(islice(file, pair[0][1] - 1, pair[0][1]), None)).get('review', '')
 
             text_2 = ""
-            with open(author_2, 'r') as file:
+            with open(os.path.join(base,author_2), 'r') as file:
                 text_2 = json.loads(next(islice(file, pair[1][1] - 1, pair[1][1]), None)).get('review', '')
 
             text = text_1 + "$$$" + text_2
@@ -281,14 +282,14 @@ def write_csv_from_sets(training_set,test_set):
 
             text_1 = ""
             topic_1 = ""
-            with open(author_1, 'r') as file:
+            with open(os.path.join(base,author_1), 'r') as file:
                 json_1 = json.loads(next(islice(file, pair[0][1] - 1, pair[0][1]), None))
                 text_1 = json_1.get('review', '')
                 topic_1 = json_1.get('topic', '')
 
             text_2 = ""
             topic_2 = ""
-            with open(author_2, 'r') as file:
+            with open(os.path.join(base,author_2), 'r') as file:
                 json_2 = json.loads(next(islice(file, pair[1][1] - 1, pair[1][1]), None))
                 text_2.get('review', '')
                 topic_2 = json_2.get('topic', '')
