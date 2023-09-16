@@ -251,7 +251,7 @@ def write_csv_from_sets(training_set,test_set):
     base = "data"
     field_names = ["id", "sentiment", "review"]
     with open("training.csv",mode="w+", newline="") as csvfile:
-        writer = csv.DictWriter(file, fieldnames=field_names)
+        writer = csv.DictWriter(csvfile, fieldnames=field_names)
         writer.writeheader()
         counter = 0
         for pair in tqdm(training_set, desc="Writing_Training_set"):
@@ -272,7 +272,7 @@ def write_csv_from_sets(training_set,test_set):
             writer.writerow(row)
 
     with open("test.csv",mode="w+", newline="") as csvfile:
-        writer = csv.DictWriter(file, fieldnames=field_names)
+        writer = csv.DictWriter(csvfile, fieldnames=field_names)
         writer.writeheader()
         counter = 0
         for pair in tqdm(test_set, desc="Writing_Training_set"):
