@@ -62,7 +62,7 @@ def train(jsonl_file, min_token = 500, max_token = 1000):
 
             tokenized_doc = nlp(data_raw['review'])
 
-            token_count = len(tokenized_doc_L)
+            token_count = len(tokenized_doc)
 
             author = data_raw['id']
             topic = data_raw['topic']
