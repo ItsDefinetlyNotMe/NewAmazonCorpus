@@ -164,7 +164,6 @@ def make_pairs(my_dict):
     training_set_diff_number = int(training_set_number_texts * 0.5)
     training_set_same_number = training_set_number_texts  - training_set_diff_number
     training_set = []
-    print(training_authors.values())
     for _ in range(training_set_same_number):
         if any(len(set(authors_list)) > 2 for authors_list in training_authors.values()):
             while True:
@@ -182,7 +181,9 @@ def make_pairs(my_dict):
                     continue
                 training_set.append(((random_author,first_text),(random_author,second_text)))
                 break
-        print("Out of same author texts")
+        else:
+            print("Out of same author texts")
+            break
 
     for _ in range(training_set_diff_number):
         if len( training_authors.keys()) > 1:
@@ -224,7 +225,9 @@ def make_pairs(my_dict):
                     continue
                 test_set.append(((random_author, first_text), (random_author, second_text)))
                 break
-        print("Out of same author texts")
+        else:
+            print("Out of same author texts")
+            break
 
     for _ in range(test_set_diff_number):
         if len(test_authors.keys()) > 1:
