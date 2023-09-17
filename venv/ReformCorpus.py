@@ -359,7 +359,9 @@ if __name__ == '__main__':
     author_dict_train, length_train = train(args[1])
     author_dict = {**author_dict_train, **author_dict_test}
     length_train.extend(length_test)
-    print(length_train)
+    for x in length_train:
+        if type(x) == str:
+            print(x)
     analysis(author_dict,length_train,"combined")
     training_set,test_set = make_pairs(author_dict)
     write_csv_from_sets(training_set, test_set)
