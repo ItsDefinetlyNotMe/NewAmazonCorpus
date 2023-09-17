@@ -10,16 +10,92 @@ import pandas as pd
 import csv
 import json
 from collections import defaultdict
-def analyse(jsonl_file, min_token = 500, max_token = 1000):
+
+
+def increment_value(dictionary, key):
+    current_value = dictionary.get(key, 0)
+    dictionary[key] = current_value + 1
+    return dictionary
+
+
+def analysis(length, authors,name):
+    # Text length
+    average_length = statistics.mean(lengths)
+    longest_length = max(lengths)
+    shortest_length = min(lengths)
+    std_deviation = statistics.stdev(lengths)
+
+    # analyse authors
+    num_authors = len(authors.keys())
+    texts_per_author = [count for count, _ in authors.values()]
+    topic_per_author_list = []
+    topics_per_author = [len(topics.keys()) for _, topics in authors.values()]
+
+    avg_texts_per_author = statistics.mean(texts_per_author)
+    std_dev_texts_per_author = statistics.stdev(texts_per_author)
+    avg_topics_per_author = statistics.mean(topics_per_author)
+    std_dev_topics_per_author = statistics.stdev(topics_per_author)
+
+    print(f"Analyse:{name}")
+    print(f"Average Review Length: {average_length}")
+    print(f"Longest Review Length: {longest_length}")
+    print(f"Shortest Review Length: {shortest_length}")
+    print(f"Standard Deviation of Lengths: {std_deviation}")
+    print(f"Number of Authors: {num_authors}")
+    print(f"Average Texts per Author: {avg_texts_per_author}")
+    print(f"Standard Deviation of Texts per Author: {std_dev_texts_per_author}")
+    print(f"Average Topics per Author: {avg_topics_per_author}")
+    print(f"Standard Deviation of Topics per Author: {std_dev_topics_per_author}")
+
+def train(jsonl_file, min_token = 500, max_token = 1000):
     base = "data"
     nlp = spacy.load("en_core_web_lg")
-
-#read test file aswell
 
     with open(jsonl_file, 'r') as file1:
         lengths = []
         authors = defaultdict(lambda: (0, {}))
-        all_data = []
+        for line in file1:
+            data_raw = json.loads(line)
+            bool_same_topic = False
+            bool_same_author = False
+
+            tokenized_doc = nlp(data_raw['review'])
+
+            token_count = len(tokenized_doc_L)
+
+            author = data_raw['id']
+            topic = data_raw['topic']
+
+            data_to_append = {"topic": topic, "review": data_raw['review']}
+
+            # make file with author id if necessary, else append a jsonl with the text.
+            if token_count >= min_token and token_count <= max_token:
+                file_path = os.path.join(base, author)
+                if os.path.exists(file_path):
+                    with open(file_path, 'a') as file:
+                        file.write(json.dumps(data_to_append) + '\n')
+                else:
+                    with open(file_path, 'w') as file:
+                        file.write(json.dumps(data_to_append) + '\n')
+
+                        # count author texts and topics
+            if token_count >= min_token and token_count <= max_token:
+                    authors[author] = (authors[author][0] + 1, increment_value(authors[author][1], topic))
+                    lengths.append(token_count)
+        # analyse data
+        analysis(lengths, authors,"train")
+
+        with open('results_dict_train', 'w') as file:
+                file.write(json.dumps(authors))
+        return authors
+
+def test(jsonl_file, min_token = 500, max_token = 1000):
+    base = "data"
+    nlp = spacy.load("en_core_web_lg")
+
+    with open(jsonl_file, 'r') as file1:
+        lengths = []
+        authors = defaultdict(lambda: (0, {}))
         for line in file1:
             data_raw = json.loads(line)
             data_L = {}
@@ -75,11 +151,6 @@ def analyse(jsonl_file, min_token = 500, max_token = 1000):
                         file.write(json.dumps(data_to_append) + '\n')
 
 
-            def increment_value(dictionary, key):
-                current_value = dictionary.get(key, 0)
-                dictionary[key] = current_value + 1
-                return dictionary
-
             #count author texts and topics
             if token_count_L > min_token and token_count_L <= max_token:
                 authors[author_L] = (authors[author_L][0] + 1,increment_value(authors[author_L][1],topic_L))
@@ -90,34 +161,9 @@ def analyse(jsonl_file, min_token = 500, max_token = 1000):
                 lengths.append(token_count_R)
 
         #analyse data
-        #Text length
-        average_length = statistics.mean(lengths)
-        longest_length = max(lengths)
-        shortest_length = min(lengths)
-        std_deviation = statistics.stdev(lengths)
+        analysis(lengths,authors,"test")
 
-        #analyse authors
-        num_authors = len(authors.keys())
-        texts_per_author = [count for count, _ in authors.values()]
-        topic_per_author_list    = []
-        topics_per_author = [len(topics.keys()) for _,topics in authors.values()]
-
-        avg_texts_per_author = statistics.mean(texts_per_author)
-        std_dev_texts_per_author = statistics.stdev(texts_per_author)
-        avg_topics_per_author = statistics.mean(topics_per_author)
-        std_dev_topics_per_author = statistics.stdev(topics_per_author)
-
-        print(f"Average Review Length: {average_length}")
-        print(f"Longest Review Length: {longest_length}")
-        print(f"Shortest Review Length: {shortest_length}")
-        print(f"Standard Deviation of Lengths: {std_deviation}")
-        print(f"Number of Authors: {num_authors}")
-        print(f"Average Texts per Author: {avg_texts_per_author}")
-        print(f"Standard Deviation of Texts per Author: {std_dev_texts_per_author}")
-        print(f"Average Topics per Author: {avg_topics_per_author}")
-        print(f"Standard Deviation of Topics per Author: {std_dev_topics_per_author}")
-
-        with open('results_dict', 'w') as file:
+        with open('results_dict_test', 'w') as file:
             file.write(json.dumps(authors))
 
         return authors
@@ -309,6 +355,9 @@ def write_csv_from_sets(training_set,test_set):
 
 if __name__ == '__main__':
     args = sys.argv[1:]
-    author_dict = analyse(args[0])
+    author_dict_test, length_test = test(args[0])
+    author_dict_train, length_train = train(args[1])
+    author_dict = {**author_dict_train, **author_dict_test}
+    analysis(author_dict,length_train.update(length_train),"combined")
     training_set,test_set = make_pairs(author_dict)
     write_csv_from_sets(training_set, test_set)
