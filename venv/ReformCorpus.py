@@ -18,7 +18,7 @@ def increment_value(dictionary, key):
     return dictionary
 
 
-def analysis(length, authors,name):
+def analysis(lengths, authors,name):
     # Text length
     average_length = statistics.mean(lengths)
     longest_length = max(lengths)
