@@ -87,7 +87,7 @@ def train(jsonl_file, min_token = 500, max_token = 1000):
 
         with open('results_dict_train', 'w') as file:
                 file.write(json.dumps(authors))
-        return authors
+        return authors, lengths
 
 def test(jsonl_file, min_token = 500, max_token = 1000):
     base = "data"
@@ -166,7 +166,7 @@ def test(jsonl_file, min_token = 500, max_token = 1000):
         with open('results_dict_test', 'w') as file:
             file.write(json.dumps(authors))
 
-        return authors
+        return authors, lengths
 def make_pairs(my_dict):
     my_array = my_dict.keys()
 
