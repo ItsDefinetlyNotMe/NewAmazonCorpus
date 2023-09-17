@@ -56,7 +56,6 @@ def train(jsonl_file, min_token = 500, max_token = 1000):
         authors = defaultdict(lambda: (0, {}))
         for line in file1:
             data_raw = json.loads(line)
-            print(data_raw.keys())
             bool_same_topic = False
             bool_same_author = False
 
@@ -359,6 +358,6 @@ if __name__ == '__main__':
     author_dict_test, length_test = test(args[0])
     author_dict_train, length_train = train(args[1])
     author_dict = {**author_dict_train, **author_dict_test}
-    analysis(author_dict,length_train.update(length_train),"combined")
+    analysis(author_dict,length_train.extend(length_train),"combined")
     training_set,test_set = make_pairs(author_dict)
     write_csv_from_sets(training_set, test_set)
