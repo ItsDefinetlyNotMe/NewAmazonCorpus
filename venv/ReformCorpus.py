@@ -292,7 +292,7 @@ def write_csv_from_sets(training_set,test_set):
             topic_2 = ""
             with open(os.path.join(base,author_2), 'r') as file:
                 json_2 = json.loads(next(islice(file, pair[1][1], pair[1][1] + 1), None))
-                text_2.get('review', '')
+                text_2 = json_2.get('review', '')
                 topic_2 = json_2.get('topic', '')
 
             text = text_1 + "$$$" + text_2
