@@ -56,6 +56,7 @@ def train(jsonl_file, min_token = 500, max_token = 1000):
         authors = defaultdict(lambda: (0, {}))
         for line in file1:
             data_raw = json.loads(line)
+            print(data_raw.keys())
             bool_same_topic = False
             bool_same_author = False
 
