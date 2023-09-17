@@ -250,7 +250,7 @@ def make_pairs(my_dict):
 
 def write_csv_from_sets(training_set,test_set):
     base = "data"
-    field_names = ["id", "sentiment", "review"]
+    field_names = ["id", "sentiment","topic" ,"review"]
     with open("training.csv",mode="w+", newline="") as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=field_names)
         writer.writeheader()
@@ -262,14 +262,18 @@ def write_csv_from_sets(training_set,test_set):
 
             text_1 = ""
             with open(os.path.join(base,author_1), 'r') as file:
-                text_1 = json.loads(next(islice(file, pair[0][1] , pair[0][1] + 1), None)).get('review', '')
+                json_1 = json.loads(next(islice(file, pair[0][1], pair[0][1] + 1), None))
+                text_1 = json_1.get('review', '')
+                topic_1 = json_1.get('topic', '')
 
             text_2 = ""
             with open(os.path.join(base,author_2), 'r') as file:
-                text_2 = json.loads(next(islice(file, pair[1][1], pair[1][1] + 1), None)).get('review', '')
+                json_2 = json.loads(next(islice(file, pair[1][1], pair[1][1] + 1), None))
+                text_2 = json_2.get('review', '')
+                topic_2 = json_2.get('topic', '')
 
             text = text_1 + "$$$" + text_2
-            row = {'id':counter, 'sentiment':same_author,'review':text}
+            row = {'id':counter, 'sentiment':same_author,'topic':topic_1 == topic_2,'review':text}
             writer.writerow(row)
 
     with open("test.csv",mode="w+", newline="") as csvfile:
