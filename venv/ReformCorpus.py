@@ -223,6 +223,8 @@ def make_pairs(my_dict):
                     second_text = random.choice(text_set)
                     training_authors[random_author].remove(first_text)
                     training_authors[random_author].remove(second_text)
+                    if len(training_authors[random_author]) < 1:
+                        del training_authors[random_author]
                 else:
                     continue
                 training_set.append(((random_author,first_text),(random_author,second_text)))
