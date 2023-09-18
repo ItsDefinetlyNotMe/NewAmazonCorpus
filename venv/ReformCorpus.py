@@ -232,7 +232,7 @@ def make_pairs(my_dict):
             break
 
     for element in training_authors.values():
-        if len(training_authors[random_author_1]) < 1:
+        if len(element) < 1:
             print("why tho")
     for _ in range(training_set_diff_number):
         if len( training_authors.keys()) > 1:
