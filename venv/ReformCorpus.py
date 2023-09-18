@@ -233,7 +233,9 @@ def make_pairs(my_dict):
             print("Out of same author texts")
             break
     training_set_diff_number = len(training_set)
-
+    for element in training_authors.values():
+        if len(element) < 1:
+            print(":C")
     for _ in range(training_set_diff_number):
         if len( training_authors.keys()) > 1:
             random_author_1 = random.choice(list(training_authors.keys()))
