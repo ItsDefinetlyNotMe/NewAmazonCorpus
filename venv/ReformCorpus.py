@@ -208,7 +208,7 @@ def make_pairs(my_dict):
     #make pairs
     #50/50
     training_set_diff_number = int(training_set_number_texts * 0.5 * appearences)
-    training_set_same_number = training_set_number_texts  - training_set_diff_number
+    training_set_same_number = training_set_number_texts * appearences - training_set_diff_number
     training_set = []
     for _ in range(training_set_same_number):
         if any(len(set(authors_list)) > 2 for authors_list in training_authors.values()):
@@ -254,8 +254,8 @@ def make_pairs(my_dict):
     #get same number  
 
     # 90/10
-    test_set_diff_number = int(test_set_number_texts * 0.9)
-    test_set_same_number = test_set_number_texts  - test_set_diff_number
+    test_set_diff_number = int(test_set_number_texts * 0.9*appearences)
+    test_set_same_number = test_set_number_texts  *appearences- test_set_diff_number
     test_set = []
     print("TEST:" + str(test_set_same_number))
 
