@@ -259,7 +259,7 @@ def make_pairs(my_dict):
     test_set_diff_number = int(test_set_number_texts * 0.9*appearences)
     test_set_same_number = test_set_number_texts  *appearences- test_set_diff_number
     test_set = []
-    print("TEST:" + str(test_set_diff_number))
+    print("TEST:" + str(test_set_number_texts))
 
     for _ in range(test_set_same_number):
         if any(len(set(authors_list)) > 2 for authors_list in test_authors.values()):
