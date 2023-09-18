@@ -232,7 +232,7 @@ def make_pairs(my_dict):
         else:
             print("Out of same author texts")
             break
-    print("TRAIN:" + str(training_set_same_number) + "/" +"REAL:" + str(len(training_set)))
+    training_set_diff_number = len(training_set)
 
     for _ in range(training_set_diff_number):
         if len( training_authors.keys()) > 1:
