@@ -207,7 +207,7 @@ def make_pairs(my_dict):
 
     #make pairs
     #50/50
-    training_set_diff_number = int(training_set_number_texts * 0.5)
+    training_set_diff_number = int(training_set_number_texts * 0.5 * appearences)
     training_set_same_number = training_set_number_texts  - training_set_diff_number
     training_set = []
     for _ in range(training_set_same_number):
@@ -232,10 +232,8 @@ def make_pairs(my_dict):
         else:
             print("Out of same author texts")
             break
+    print("TRAIN:" + training_set_same_number)
 
-    for element in training_authors.values():
-        if len(element) < 1:
-            print("why tho")
     for _ in range(training_set_diff_number):
         if len( training_authors.keys()) > 1:
             random_author_1 = random.choice(list(training_authors.keys()))
@@ -259,6 +257,7 @@ def make_pairs(my_dict):
     test_set_diff_number = int(test_set_number_texts * 0.9)
     test_set_same_number = test_set_number_texts  - test_set_diff_number
     test_set = []
+    print("TEST:" + test_set_same_number)
 
     for _ in range(test_set_same_number):
         if any(len(set(authors_list)) > 2 for authors_list in test_authors.values()):
@@ -335,7 +334,7 @@ def write_csv_from_sets(training_set,test_set):
         writer = csv.DictWriter(csvfile, fieldnames=field_names)
         writer.writeheader()
         counter = 0
-        for pair in tqdm(test_set, desc="Writing_Training_set"):
+        for pair in tqdm(test_set, desc="Writing_Test_set"):
             author_1 =  pair[0][0]
             author_2 = pair[1][0]
             same_author = author_1 == author_2
