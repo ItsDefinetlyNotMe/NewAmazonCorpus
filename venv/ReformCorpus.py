@@ -173,7 +173,7 @@ def make_pairs(my_dict):
     #allow text to be x times in the set
     appearences = 2
     #how much % is test_set exclusive
-    p_test = 0.1
+    p_test = 0.2
     test_authors ={}
     training_authors = {}
 
