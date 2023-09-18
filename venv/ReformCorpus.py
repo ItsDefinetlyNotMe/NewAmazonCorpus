@@ -231,12 +231,16 @@ def make_pairs(my_dict):
             print("Out of same author texts")
             break
 
+    for element in training_authors.values():
+        if len(training_authors[random_author_1]) < 1:
+            print("why tho")
     for _ in range(training_set_diff_number):
         if len( training_authors.keys()) > 1:
             random_author_1 = random.choice(list(training_authors.keys()))
             random_author_2 = random_author_1
             while random_author_2 == random_author_1:
                 random_author_2 = random.choice(list(training_authors.keys()))
+
             text_1 = random.choice(list(set(training_authors[random_author_1])))
             training_authors[random_author_1].remove(text_1)
             if len(training_authors[random_author_1]) < 1:
