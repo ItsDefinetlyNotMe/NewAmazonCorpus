@@ -274,6 +274,8 @@ def make_pairs(my_dict):
                     second_text = random.choice(text_set)
                     test_authors[random_author].remove(first_text)
                     test_authors[random_author].remove(second_text)
+                    if len(training_authors[random_author]) < 1:
+                        del training_authors[random_author]
                 else:
                     continue
                 test_set.append(((random_author, first_text), (random_author, second_text)))
@@ -362,10 +364,19 @@ def write_csv_from_sets(training_set,test_set):
 
 if __name__ == '__main__':
     args = sys.argv[1:]
-    author_dict_test, length_test = test(args[0])
-    author_dict_train, length_train = train(args[1])
-    author_dict = {**author_dict_train, **author_dict_test}
-    length_train.extend(length_test)
-    analysis(length_train,author_dict,"combined")
-    training_set,test_set = make_pairs(author_dict)
+    #author_dict_test, length_test = test(args[0])
+    #author_dict_train, length_train = train(args[1])
+    #author_dict = {**author_dict_train, **author_dict_test}
+    #length_train.extend(length_test)
+    #analysis(length_train,author_dict,"combined")
+    author_dict_train = {}
+    author_dict_test = {}
+    with open('results_dict_test', 'r') as file:
+        author_dict_test = json.load(file)
+
+    with open('results_dict_train', 'r') as file:
+        author_dict_train = json.load(file)
+    print("combined dict")
+    combined_dict = {**author_dict_train, **author_dict_test}
+    training_set,test_set = make_pairs(combined_dict)
     write_csv_from_sets(training_set, test_set)
