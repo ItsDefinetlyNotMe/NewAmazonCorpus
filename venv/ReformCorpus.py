@@ -69,7 +69,16 @@ def train(jsonl_file, min_token = 500, max_token = 1000):
             data_to_append = {"topic": topic, "review": data_raw['review']}
 
             # make file with author id if necessary, else append a jsonl with the text.
-            if token_count >= min_token and token_count <= max_token:
+            if token_count >= min_token:
+                if token_count >= max_token:
+                    token_counter = 0
+                    final_text = ""
+                    for token in tokenized_doc:
+                        final_text += token.text_with_ws
+                        token_counter += 1
+                        if token_counter >= max_token:
+                            break
+                    data_to_append["review"] = final_text
                 file_path = os.path.join(base, author)
                 if os.path.exists(file_path):
                     with open(file_path, 'a') as file:
@@ -78,8 +87,8 @@ def train(jsonl_file, min_token = 500, max_token = 1000):
                     with open(file_path, 'w') as file:
                         file.write(json.dumps(data_to_append) + '\n')
 
-                        # count author texts and topics
-            if token_count >= min_token and token_count <= max_token:
+            # count author texts and topics
+            if token_count >= min_token:
                     authors[author] = (authors[author][0] + 1, increment_value(authors[author][1], topic))
                     lengths.append(token_count)
         # analyse data
@@ -130,7 +139,15 @@ def test(jsonl_file, min_token = 500, max_token = 1000):
             data_to_append = {"topic": topic_L, "review":data_L['review'] }
 
             #make file with author id if necessary, else append a jsonl with the text.
-            if token_count_L >= 500 and token_count_L <= max_token:
+            if token_count_L >= min_token:
+                if token_count >= max_token:
+                    final_text = ""
+                    for token in tokenized_doc_L:
+                        final_text += token.text_with_ws
+                        token_count += 1
+                        if token_count >= max_token:
+                            break
+                    data_to_append["review"] = final_text
                 file_path = os.path.join(base,author_L)
                 if os.path.exists(file_path):
                     with open(file_path, 'a') as file:
@@ -141,7 +158,15 @@ def test(jsonl_file, min_token = 500, max_token = 1000):
 
             data_to_append = {"topic": topic_R, "review":data_R['review'] }
 
-            if token_count_R > min_token and token_count_R <= max_token:
+            if token_count_R > min_token :
+                if token_count >= max_token:
+                    final_text = ""
+                    for token in tokenized_doc_R:
+                        final_text += token.text_with_ws
+                        token_count += 1
+                        if token_count >= max_token:
+                            break
+                    data_to_append["review"] = final_text
                 file_path = os.path.join(base,author_R)
                 if os.path.exists(file_path):
                     with open(file_path, 'a') as file:
@@ -152,11 +177,11 @@ def test(jsonl_file, min_token = 500, max_token = 1000):
 
 
             #count author texts and topics
-            if token_count_L > min_token and token_count_L <= max_token:
+            if token_count_L > min_token:
                 authors[author_L] = (authors[author_L][0] + 1,increment_value(authors[author_L][1],topic_L))
                 lengths.append(token_count_L)
 
-            if token_count_R > min_token and token_count_R <= max_token:
+            if token_count_R > min_token:
                 authors[author_R]  = (authors[author_R][0] + 1,increment_value(authors[author_R][1],topic_R))
                 lengths.append(token_count_R)
 
@@ -363,20 +388,11 @@ def write_csv_from_sets(training_set,test_set):
 
 if __name__ == '__main__':
     args = sys.argv[1:]
-    #author_dict_test, length_test = test(args[0])
-    #author_dict_train, length_train = train(args[1])
-    #author_dict = {**author_dict_train, **author_dict_test}
-    #length_train.extend(length_test)
-    #analysis(length_train,author_dict,"combined")
-    author_dict_train = {}
-    author_dict_test = {}
-    with open('results_dict_test', 'r') as file:
-        author_dict_test = json.load(file)
-
-    with open('results_dict_train', 'r') as file:
-        author_dict_train = json.load(file)
-    print("combined dict")
-    print(f"Authors in train:{len(author_dict_train.keys())}, Authors in test:{len(author_dict_test.keys())} ")
+    author_dict_test, length_test = test(args[0])
+    author_dict_train, length_train = train(args[1])
+    author_dict = {**author_dict_train, **author_dict_test}
+    length_train.extend(length_test)
+    analysis(length_train,author_dict,"combined")
     combined_dict = {**author_dict_train, **author_dict_test}
     training_set,test_set = make_pairs(combined_dict)
     write_csv_from_sets(training_set, test_set)
