@@ -377,6 +377,7 @@ if __name__ == '__main__':
     with open('results_dict_train', 'r') as file:
         author_dict_train = json.load(file)
     print("combined dict")
+    print(f"Authors in train:{len(author_dict_train.keys())}, Authors in test:{len(author_dict_test.keys())} ")
     combined_dict = {**author_dict_train, **author_dict_test}
     training_set,test_set = make_pairs(combined_dict)
     write_csv_from_sets(training_set, test_set)
