@@ -140,7 +140,7 @@ def test(jsonl_file, min_token = 500, max_token = 1000):
 
             #make file with author id if necessary, else append a jsonl with the text.
             if token_count_L >= min_token:
-                if token_count >= max_token:
+                if token_count_L >= max_token:
                     final_text = ""
                     for token in tokenized_doc_L:
                         final_text += token.text_with_ws
@@ -159,7 +159,7 @@ def test(jsonl_file, min_token = 500, max_token = 1000):
             data_to_append = {"topic": topic_R, "review":data_R['review'] }
 
             if token_count_R > min_token :
-                if token_count >= max_token:
+                if token_count_R >= max_token:
                     final_text = ""
                     for token in tokenized_doc_R:
                         final_text += token.text_with_ws
