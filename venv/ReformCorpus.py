@@ -271,13 +271,14 @@ def make_pairs(my_dict):
                 random_author_2 = random.choice(list(training_authors.keys()))
 
             text_1 = random.choice(list(set(training_authors[random_author_1])))
-            training_authors[random_author_1].remove(text_1)
-            if len(training_authors[random_author_1]) < 1:
-                del training_authors[random_author_1]
+
             text_2 = random.choice(list(set(training_authors[random_author_2])))
             training_authors[random_author_2].remove(text_2)
             if len(training_authors[random_author_2]) < 1:
                 del training_authors[random_author_2]
+            training_authors[random_author_1].remove(text_1)
+            if len(training_authors[random_author_1]) < 1:
+                del training_authors[random_author_1]
             training_set.append(((random_author_1, text_1),(random_author_2, text_2)))
 
     #get same number  
@@ -317,10 +318,11 @@ def make_pairs(my_dict):
             while random_author_2 == random_author_1:
                 random_author_2 = random.choice(list(test_authors.keys()))
             text_1 = random.choice(list(set(test_authors[random_author_1])))
+
+            text_2 = random.choice(list(set(test_authors[random_author_2])))
             test_authors[random_author_1].remove(text_1)
             if len(test_authors[random_author_1]) < 1:
                 del test_authors[random_author_1]
-            text_2 = random.choice(list(set(test_authors[random_author_2])))
             test_authors[random_author_2].remove(text_2)
             if len(test_authors[random_author_2]) < 1:
                 del test_authors[random_author_2]
