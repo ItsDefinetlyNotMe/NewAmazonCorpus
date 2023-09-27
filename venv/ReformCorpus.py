@@ -266,9 +266,10 @@ def make_pairs(my_dict):
     for _ in range(training_set_diff_number):
         if len( training_authors.keys()) > 1:
             random_author_1 = random.choice(list(training_authors.keys()))
-            random_author_2 = random_author_1
-            while random_author_2 == random_author_1:
-                random_author_2 = random.choice(list(training_authors.keys()))
+
+            authors = list(training_authors.keys())
+            authors.remove(random_author_1)
+            random_author_2 = random.choice(authors)
 
             text_1 = random.choice(list(set(training_authors[random_author_1])))
 
